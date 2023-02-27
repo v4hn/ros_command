@@ -46,5 +46,5 @@ source_ros()
 # Register Tab Completion
 for f in $FOLDER/bin/*
 do
-    eval "$(register-python-argcomplete3 $(basename ${f}))"
+    eval "$($(which register-python-argcomplete{,3}) $(basename ${f}))"
 done
