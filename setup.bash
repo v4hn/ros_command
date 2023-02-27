@@ -9,7 +9,7 @@ export PATH=$FOLDER/bin:$PATH
 # Attempt to implement roscd upstream: https://github.com/ros2/ros2cli/pull/75
 
 # Only define roscd when it is not defined, i.e. don't overwrite the ROS 1 version
-if ! $(type -t roscd) ; then
+if [[ -z "$(type -t roscd)" ]]; then
     roscd()
     {
         if [[ -z "${ROS_VERSION}" ]]; then
