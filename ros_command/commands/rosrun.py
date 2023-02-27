@@ -1,7 +1,8 @@
 import argcomplete
 import argparse
+import subprocess
 
-from ros_command.command_lib import run
+from ros_command.command_lib import run, get_overlayed_command
 from ros_command.completion import PackageCompleter, ExecutableNameCompleter
 from ros_command.workspace import get_ros_version, get_workspace_root
 
@@ -21,7 +22,8 @@ async def main(debug=False):
 
     command = []
     if version == 1:
-        command.append(f'/opt/ros/{distro}/bin/rosrun')
+        rosrun = get_overlayed_command('rosrun')
+        command.append(rosrun)
     else:
         command.append(f'/opt/ros/{distro}/bin/ros2')
         command.append('run')

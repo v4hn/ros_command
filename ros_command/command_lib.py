@@ -1,6 +1,9 @@
 import asyncio
 from asyncio import create_subprocess_exec
 from asyncio.subprocess import DEVNULL, PIPE
+import subprocess
+
+import os
 
 import click
 
@@ -24,6 +27,12 @@ def _default_stdout_callback(line):
 def _default_stderr_callback(line):
     """Default callback for stderr that prints to stdout in red."""
     click.secho(line, fg='red', nl=False)
+
+
+def get_overlayed_command(command):
+    cmds = subprocess.run(['which', '-a', command], stdout=PIPE, text=True).stdout
+    cmds = cmds.splitlines()
+    return next(r for r in cmds if not r.startswith(os.environ['ROS_COMMAND_ROOT']))
 
 
 async def run(command, stdout_callback=None, stderr_callback=None, cwd=None):

@@ -1,8 +1,8 @@
 # This file is intended to be source-d
 
-FOLDER=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
-export PYTHONPATH=$FOLDER:$PYTHONPATH
-export PATH=$FOLDER/bin:$PATH
+export ROS_COMMAND_ROOT=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
+export PYTHONPATH=$ROS_COMMAND_ROOT:$PYTHONPATH
+export PATH=$ROS_COMMAND_ROOT/bin:$PATH
 
 # roscd is not a Python script because Python cannot change the directory
 # https://stackoverflow.com/questions/18166977/cd-to-dir-after-exiting-script-system-independent-way-purely-in-python
@@ -44,7 +44,7 @@ source_ros()
 }
 
 # Register Tab Completion
-for f in $FOLDER/bin/*
+for f in $ROS_COMMAND_ROOT/bin/*
 do
     eval "$($(which register-python-argcomplete{,3}) $(basename ${f}))"
 done

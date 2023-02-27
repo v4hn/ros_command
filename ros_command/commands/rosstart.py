@@ -1,7 +1,7 @@
 import argcomplete
 import argparse
 
-from ros_command.command_lib import run
+from ros_command.command_lib import run, get_overlayed_command
 from ros_command.completion import PackageCompleter
 from ros_command.packages import find_executables_in_package, find_launch_files_in_package
 from ros_command.workspace import get_ros_version, get_workspace_root
@@ -37,7 +37,7 @@ async def main():
 
     command = []
     if version == 1:
-        command.append(f'/opt/ros/{distro}/bin/ros{verb}')
+        command.append(get_overlayed_command(f'ros{verb}'))
     else:
         command.append(f'/opt/ros/{distro}/bin/ros2')
         command.append(verb)
